@@ -40,7 +40,6 @@ df.to_csv("phase2_features.csv", index=False)
 df = df.drop(columns=["OrderID", "CustomerID", "TrackingNumber", "ShippingAddress", "Date"])
 print(df.shape)
 #encoding categorical columns
-#encoding categorical columns
 cat_cols = ["Product", "PaymentMethod", "OrderStatus", "CouponCode", "ReferralSource"]
 encoder = OneHotEncoder(drop="first", sparse_output=False)
 res = encoder.fit_transform(df[cat_cols])
@@ -60,13 +59,13 @@ df = df.drop(columns=["CouponCode_NoCoupon"])
 print(df.shape)
 #######################phase3####################################
 schema=DataFrameSchema({
-    "Quantity":    Column(int,   Check.in_range(1, 5),  coerce=True),
-    "UnitPrice":   Column(float, Check.greater_than(0), coerce=True),
-    "ItemsInCart": Column(int,   Check.in_range(1, 10), coerce=True),
-    "TotalPrice":  Column(float, Check.greater_than(0), coerce=True),
-    "Month":       Column(int,   Check.in_range(1, 12), coerce=True),
-    "BigOrder":    Column(int,   Check.isin([0, 1]),    coerce=True),
-    "HasCoupon":   Column(int,   Check.isin([0, 1]),    coerce=True),
+    "Quantity": Column(int,Check.in_range(1, 5),coerce=True),
+    "UnitPrice": Column(float,Check.greater_than(0),coerce=True),
+    "ItemsInCart":Column(int,Check.in_range(1, 10),coerce=True),
+    "TotalPrice":Column(float,Check.greater_than(0),coerce=True),
+    "Month": Column(int,Check.in_range(1, 12),coerce=True),
+    "BigOrder": Column(int,Check.isin([0, 1]),coerce=True),
+    "HasCoupon":Column(int,Check.isin([0, 1]),coerce=True),
 })
 df=schema.validate(df)
 print("passed")
